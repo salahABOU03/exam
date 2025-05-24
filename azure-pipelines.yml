@@ -15,12 +15,11 @@ stages:
       - job: BackendJob
         displayName: "Backend - Build & Test"
         steps:
-          - task: JavaToolInstaller@0
+          - task: JavaToolInstaller@1
             inputs:
               versionSpec: '17'
               jdkArchitectureOption: 'x64'
-              jdkSourceOption: 'Jdk'           # téléchargement automatique
-              distribution: 'Temurin'          # distribution openjdk reconnue
+              jdkSourceOption: 'Jdk'
 
           - script: |
               cd ExamPortal-master
