@@ -19,7 +19,8 @@ stages:
             inputs:
               versionSpec: '17'
               jdkArchitectureOption: 'x64'
-              jdkSourceOption: 'Jdk'   # <--- valeur obligatoire
+              jdkSourceOption: 'Jdk'           # téléchargement automatique
+              distribution: 'Temurin'          # distribution openjdk reconnue
 
           - script: |
               cd ExamPortal-master
