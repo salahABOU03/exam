@@ -1,19 +1,55 @@
 trigger:
-- main
+  branches:
+    include:
+      - main
 
-# Utilisation de ton agent local
 pool:
-  name: Default   # nom du pool (vérifie s’il est différent dans Azure DevOps)
+  name: Default
   demands:
-    - agent.name -equals DESKTOP-EC8HHP6  # nom exact de l’agent installé sur ta machine
+    - agent.name -equals DESKTOP-EC8HHP6
 
-steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '20.x'
-  displayName: 'Install Node.js'
+stages:
+  - stage: Build_Backend
+    displayName: "Build Spring Boot Backend"
+    jobs:
+      - job: BackendJob
+        displayName: "Backend - Build & Test"
+        steps:
+          - task: JavaToolInstaller@0
+            inputs:
+              versionSpec: '17'
+              jdkArchitecture: 'x64'
+              jdkSourceOption: 'PreInstalled'
 
-- script: |
-    npm install
-    npm run build
-  displayName: 'npm install and build'
+          - script: |
+              cd ExamPortal-master
+              ./mvnw clean verify
+            displayName: 'Build Backend'
+
+          - script: |
+              cd ExamPortal-master
+              ./mvnw test
+            displayName: 'Test Backend'
+
+  - stage: Build_Frontend
+    displayName: "Build Angular Frontend"
+    dependsOn: Build_Backend
+    jobs:
+      - job: FrontendJob
+        displayName: "Frontend - Build & Test"
+        steps:
+          - task: NodeTool@0
+            inputs:
+              versionSpec: '18.x'
+            displayName: 'Install Node.js 18'
+
+          - script: |
+              cd ExamPortalAngularGUI-main
+              npm install
+              npm run build
+            displayName: 'Build Angular App'
+
+          - script: |
+              cd ExamPortalAngularGUI-main
+              npm test -- --watch=false --browsers=ChromeHeadless
+            displayName: 'Run Frontend Tests'
