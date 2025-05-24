@@ -19,12 +19,12 @@ stages:
               echo Utilisation de Java installé localement
               java -version
               cd ExamPortal-master
-              ./mvnw clean verify
+              mvnw.cmd clean verify
             displayName: 'Build Backend'
 
           - script: |
               cd ExamPortal-master
-              ./mvnw test
+              mvnw.cmd test
             displayName: 'Test Backend'
 
   - stage: Build_Frontend
