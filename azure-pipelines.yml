@@ -18,8 +18,8 @@ stages:
           - task: JavaToolInstaller@0
             inputs:
               versionSpec: '17'
+              jdkSourceOption: 'PreInstalled'
               jdkArchitectureOption: 'x64'
-              jdkSourceOption: 'Jdk'
 
           - script: |
               cd ExamPortal-master
