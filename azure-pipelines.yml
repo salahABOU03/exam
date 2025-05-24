@@ -19,7 +19,7 @@ stages:
             inputs:
               versionSpec: '17'
               jdkArchitectureOption: 'x64'
-              # jdkSourceOption: 'PreInstalled'  # supprimé pour éviter l'erreur
+              jdkSourceOption: 'Jdk'   # <--- valeur obligatoire
 
           - script: |
               cd ExamPortal-master
