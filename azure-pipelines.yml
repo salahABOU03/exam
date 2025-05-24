@@ -15,7 +15,7 @@ stages:
       - job: BackendJob
         displayName: "Backend - Build & Test"
         steps:
-          - task: JavaToolInstaller@1
+          - task: JavaToolInstaller@0
             inputs:
               versionSpec: '17'
               jdkArchitectureOption: 'x64'
