@@ -16,7 +16,7 @@ stages:
         displayName: "Backend - Build & Test"
         steps:
           - script: |
-              echo Utilisation de Java installé localement
+              echo === Utilisation de Java installé localement ===
               java -version
               cd ExamPortal-master
               mvnw.cmd clean verify
